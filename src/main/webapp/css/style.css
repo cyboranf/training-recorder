@@ -27,7 +27,7 @@ html {
 body {
     font-family: "Open Sans", sans-serif;
     font-weight: 400;
-    background: repeat url("/WEB-INF/jsp/css/images/image.png");
+    background: repeat url("/css/images/background1.jpg");
 }
 
 p {
@@ -51,7 +51,7 @@ p {
 }
 
 .btn-color {
-    background-color: green;
+    background-color: purple;
     color: var(--light-link-color);
     font-weight: 600;
     font-size: 20px;
@@ -70,6 +70,7 @@ p {
 .label-size {
     font-size: 1.4rem;
     color: var(--background-color);
+
 }
 
 hr {
@@ -127,6 +128,8 @@ hr {
 
 .padding-large {
     padding: 150px 0;
+    background: repeat url("/css/images/background1.jpg");
+    /*background: mediumpurple;*/
 }
 
 .padding-medium {
@@ -142,17 +145,17 @@ hr {
 /*------------------------------*/
 
 .page-header {
-    background: #88ec88;
+    background: black;
 }
 
 .nav-link {
-    color: green !important;
+    color: purple !important;
     font-size: 1.1rem;
 }
 
 .page-header .nav .nav-item .active,
 .page-header .nav .nav-item a:hover {
-    color: green !important;
+    color: deeppink !important;
 }
 
 .main-logo {
@@ -165,12 +168,12 @@ hr {
 }
 
 .main-logo-smaller {
-    color: #F08080;
+    color: mediumpurple;
     font-size: 2rem;
 }
 
 .main-logo span {
-    color: green;
+    color: purple !important;
 }
 
 /*------------------------------*/
@@ -211,8 +214,8 @@ hr {
 
 .section-more {
     /*background: var(--background-color);*/
-    background: darkgreen;
-    color: var(--light-link-color);
+    background: black;
+    color: lightpink;
 }
 
 /*------------------------------*/
@@ -286,11 +289,11 @@ hr {
 /*------------------------------*/
 
 .footer-section {
-    background: #abf2ab;
+    background: purple;
 }
 
 .footer-text-color {
-    color: green;
+    color: pink;
 }
 
 /*------------------------------*/
