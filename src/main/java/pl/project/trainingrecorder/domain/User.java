@@ -16,7 +16,7 @@ public class User {
     @Column(length = 60, unique = true)
     private String email;
     @Column(length = 60)
-    private String firstName;
+    private String userName;
     @Column(length = 60)
     private String lastName;
     @Column(length = 100)
@@ -24,7 +24,9 @@ public class User {
     @Transient
     private String matchingPassword;
     @Column(name = "role")
-    private String role;
+    private String roles;
+
+    private boolean active;
     @OneToMany
     private List<Training> trainingList;
 }
