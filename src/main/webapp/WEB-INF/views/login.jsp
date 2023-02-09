@@ -4,36 +4,25 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@include file="header.jsp" %>
-
 <section class="dashboard-section">
     <div class="container pt-4 pb-4">
         <div class="border-dashed view-height">
             <div class="container w-25">
-
-                <form:form modelAttribute="user" method="post">
-                    <h1 class="text-color-darker">Sign up</h1>
+                <form class="padding-small text-center" method="post">
+                    <h1 class="text-color-darker">Sign in to Training Recorder</h1>
                     <div class="form-group">
-                        <form:input path="userName" placeholder="first name"/>
+                        <input type="text" class="form-control" id="name" name="name" placeholder="name">
                     </div>
                     <div class="form-group">
-                        <form:input path="lastName" placeholder="last name"/>
+                        <input type="password" class="form-control" id="password" name="password"
+                               placeholder="password">
                     </div>
-                    <div class="form-group">
-                        <form:input type="email" path="email" placeholder="Email"/>
-                    </div>
-                    <div class="form-group">
-                        <form:password path="password" placeholder="password"/>
-                    </div>
-                    <div class="form-group">
-                        <form:password path="matchingPassword" placeholder="verify password"/>
-                    </div>
-                    <button class="btn btn-color rounded-0" type="submit">Create an account</button>
-                </form:form>
+                    <button class="btn btn-color rounded-0" type="submit">Sign in</button>
+                </form>
             </div>
         </div>
     </div>
 </section>
-
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
