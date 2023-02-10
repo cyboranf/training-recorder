@@ -7,10 +7,10 @@
 
 <section class="dashboard-section">
     <div class="container pt-4 pb-4">
-        <div class="border-dashed view-height">
-            <div class="container w-25">
+        <form:form modelAttribute="user" method="post">
+            <div class="border-dashed view-height">
+                <div class="container w-25">
 
-                <form:form modelAttribute="user" method="post">
                     <h1 class="text-color-darker">Sign up</h1>
                     <div class="form-group">
                         <form:input path="userName" placeholder="first name"/>
@@ -28,9 +28,9 @@
                         <form:password path="matchingPassword" placeholder="verify password"/>
                     </div>
                     <button class="btn btn-color rounded-0" type="submit">Create an account</button>
-                </form:form>
+                </div>
             </div>
-        </div>
+        </form:form>
     </div>
 </section>
 

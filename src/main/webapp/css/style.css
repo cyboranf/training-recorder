@@ -2,10 +2,10 @@
 /*---- Main style ----*/
 /*------------------------------*/
 :root {
-    --link-color: #ff6600;
+    --link-color: pink;
     --light-link-color: #fffffa;
     --background-color: #4b4c4a;
-    --lighter-background-color: #5a615f;
+    --lighter-background-color: gray;
     --lighter-text-color: #9fa292;
     --dark-text: #000000;
     --blue: #007bff;
@@ -361,7 +361,7 @@ hr {
 .dashboard-section .nav-item a.active i.fa-angle-right,
 .dashboard-section .nav-item:hover i.fa-angle-right {
     display: block;
-    color: var(--link-color) !important;
+    color: pink !important;
 }
 
 .circle-div {

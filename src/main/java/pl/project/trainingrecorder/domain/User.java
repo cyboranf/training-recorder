@@ -26,6 +26,7 @@ public class User {
     @Column(name = "role")
     private String roles;
 
+    private boolean logged;
     private boolean active;
     @OneToMany
     private List<Training> trainingList;

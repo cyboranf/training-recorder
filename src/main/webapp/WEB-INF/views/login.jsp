@@ -11,7 +11,7 @@
                 <form class="padding-small text-center" method="post">
                     <h1 class="text-color-darker">Sign in to Training Recorder</h1>
                     <div class="form-group">
-                        <input type="text" class="form-control" id="name" name="name" placeholder="name">
+                        <input type="text" class="form-control" id="userName" name="name" placeholder="name">
                     </div>
                     <div class="form-group">
                         <input type="password" class="form-control" id="password" name="password"
