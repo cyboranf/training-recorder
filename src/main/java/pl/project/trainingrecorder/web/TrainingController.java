@@ -107,7 +107,7 @@ public class TrainingController {
     }
 
     @GetMapping("/app/training/listD")
-    public String showTrainingsToSeeDetails(Model model){
+    public String showTrainingsToSeeDetails(Model model) {
         User loggedUser = userService.findByLogged();
         List<Training> trainingList = trainingService.trainingList(loggedUser);
 
@@ -118,7 +118,7 @@ public class TrainingController {
 
     @GetMapping("/app/training/detailsD")
     public String showAnotherViewOfDetails(@RequestParam(name = "id") String id,
-                                      Model model) {
+                                           Model model) {
         int runningId = Integer.parseInt(id);
         User loggedUser = userService.findByLogged();
         List<Training> trainingList = trainingService.trainingList(loggedUser);
@@ -130,12 +130,175 @@ public class TrainingController {
     }
 
     @GetMapping("/app/training/listE")
-    public String showTrainingsToEdit(Model model){
+    public String showTrainingsToEdit(Model model) {
         User loggedUser = userService.findByLogged();
         List<Training> trainingList = trainingService.trainingList(loggedUser);
 
         model.addAttribute("trainingList", trainingList);
 
         return "appTrainingListE";
+    }
+
+    @GetMapping("/app/training/edit")
+    public String showEditJSP(@RequestParam(name = "id") String id,
+                              Model model) {
+        identity = Long.parseLong(id);
+        int runningId = Integer.parseInt(id);
+        User loggedUser = userService.findByLogged();
+        List<Training> trainingList = trainingService.trainingList(loggedUser);
+
+        TrainingDetails trainingDetails = trainingList.get(runningId - 1).getTrainingDetails();
+        Training training = trainingList.get(runningId - 1);
+
+        model.addAttribute("training", training);
+        model.addAttribute("trainingDetail", trainingDetails);
+
+        LocalTime time = training.getTrainingTime();
+        int hours = time.getHour();
+        int minutes = time.getMinute();
+        int seconds = time.getSecond();
+
+        model.addAttribute("hours", hours);
+        model.addAttribute("minutes", minutes);
+        model.addAttribute("seconds", seconds);
+        model.addAttribute("from", training.getTrainingDay());
+
+        return "appTrainingEdit";
+    }
+
+    public long identity;
+
+    @GetMapping("/app/trainings/edit")
+    public String editTraining(@RequestParam String date,
+                               @RequestParam String description,
+                               @RequestParam String kilometers,
+                               @RequestParam String hours,
+                               @RequestParam String minutes,
+                               @RequestParam String seconds,
+                               @RequestParam String height,
+                               @RequestParam String weight) {
+        User loggedUser = userService.findByLogged();
+        Training training = trainingService.findById(identity);
+        TrainingDetails trainingDetails = trainingDetailsService.findById(identity);
+
+        LocalTime time = LocalTime.of(Integer.parseInt(hours), Integer.parseInt(minutes), Integer.parseInt(seconds));
+        LocalDate rightDate = LocalDate.parse(date);
+
+        training.setTrainingDay(rightDate);
+        training.setDescription(description);
+        training.setTrainingTime(time);
+
+        trainingDetails.setHeight(Integer.parseInt(height));
+        trainingDetails.setWeight(Integer.parseInt(weight));
+
+        //Calculate Section
+        CaloriesBurned caloriesBurned = new CaloriesBurned();
+        AvgRunningPace avgRunningPace = new AvgRunningPace();
+
+        int userWeight = Integer.parseInt(weight);
+        int km = Integer.parseInt(kilometers);
+
+        double temp = avgRunningPace.avgTemp(time, km);
+        long calories = caloriesBurned.calculateKcal(temp, time, userWeight);
+        //Calculate Section
+        trainingDetails.setTemp(temp);
+        trainingDetails.setKcal(calories);
+        trainingDetails.setKilometers(km);
+
+        training.setTrainingDetails(trainingDetails);
+
+        trainingDetailsService.save(trainingDetails);
+        trainingService.save(training);
+
+        return "redirect:/app/training/list";
+    }
+
+    @GetMapping("/app/training/editE")
+    public String showEditEJSP(@RequestParam(name = "id") String id,
+                               Model model) {
+        identity = Long.parseLong(id);
+        int runningId = Integer.parseInt(id);
+        User loggedUser = userService.findByLogged();
+        List<Training> trainingList = trainingService.trainingList(loggedUser);
+
+        TrainingDetails trainingDetails = trainingList.get(runningId - 1).getTrainingDetails();
+        Training training = trainingList.get(runningId - 1);
+
+        model.addAttribute("training", training);
+        model.addAttribute("trainingDetail", trainingDetails);
+
+        LocalTime time = training.getTrainingTime();
+        int hours = time.getHour();
+        int minutes = time.getMinute();
+        int seconds = time.getSecond();
+
+        model.addAttribute("hours", hours);
+        model.addAttribute("minutes", minutes);
+        model.addAttribute("seconds", seconds);
+        model.addAttribute("from", training.getTrainingDay());
+
+        return "appTrainingEditE";
+    }
+
+    @GetMapping("/app/trainings/editE")
+    public String editTrainingE(@RequestParam String date,
+                                @RequestParam String description,
+                                @RequestParam String kilometers,
+                                @RequestParam String hours,
+                                @RequestParam String minutes,
+                                @RequestParam String seconds,
+                                @RequestParam String height,
+                                @RequestParam String weight) {
+        User loggedUser = userService.findByLogged();
+        Training training = trainingService.findById(identity);
+        TrainingDetails trainingDetails = trainingDetailsService.findById(identity);
+
+        LocalTime time = LocalTime.of(Integer.parseInt(hours), Integer.parseInt(minutes), Integer.parseInt(seconds));
+        LocalDate rightDate = LocalDate.parse(date);
+
+        training.setTrainingDay(rightDate);
+        training.setDescription(description);
+        training.setTrainingTime(time);
+
+        trainingDetails.setHeight(Integer.parseInt(height));
+        trainingDetails.setWeight(Integer.parseInt(weight));
+
+        //Calculate Section
+        CaloriesBurned caloriesBurned = new CaloriesBurned();
+        AvgRunningPace avgRunningPace = new AvgRunningPace();
+
+        int userWeight = Integer.parseInt(weight);
+        int km = Integer.parseInt(kilometers);
+
+        double temp = avgRunningPace.avgTemp(time, km);
+        long calories = caloriesBurned.calculateKcal(temp, time, userWeight);
+        //Calculate Section
+        trainingDetails.setTemp(temp);
+        trainingDetails.setKcal(calories);
+        trainingDetails.setKilometers(km);
+
+        training.setTrainingDetails(trainingDetails);
+
+        trainingDetailsService.save(trainingDetails);
+        trainingService.save(training);
+
+        return "redirect:/app/training/listE";
+    }
+
+    @GetMapping("/app/training/delete")
+    public String deleteTraining(@RequestParam(name = "id") String id) {
+        long ID = Long.parseLong(id);
+        User loggedUser = userService.findByLogged();
+        Training training = trainingService.findById(ID);
+        TrainingDetails trainingDetails = trainingDetailsService.findById(ID);
+
+        List<Training> trainingList = loggedUser.getTrainingList();
+        trainingList.remove(ID - 1);
+
+
+        trainingService.delete(training);
+        trainingDetailsService.delete(trainingDetails);
+
+        return "redirect:/app/training/list";
     }
 }
