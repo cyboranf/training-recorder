@@ -1,6 +1,7 @@
 package pl.project.trainingrecorder.security;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.LocaleContextResolver;
 import org.springframework.web.servlet.ViewResolver;
@@ -12,6 +13,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import java.util.Locale;
 
 @Configuration
+@ComponentScan(basePackages = {"pl.project.trainingrecorder"})
 public class TrainingRecorderConfiguration implements WebMvcConfigurer {
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
