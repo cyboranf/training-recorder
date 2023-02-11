@@ -35,10 +35,10 @@
                         <td class="col-2 d-flex align-items-center justify-content-center flex-wrap">
                             <button onclick="myFunction(${training.id})"
                                     class="btn btn-danger rounded-0 text-light m-1">
-                                Usuń
+                                Delete
                             </button>
-                            <a href="/app/training/details?id=${training.id}" class="btn btn-info rounded-0 text-light m-1">Szczegóły</a>
-                            <a href="/app/training/edit?id=${training.id}" class="btn btn-warning rounded-0 text-light m-1">Edytuj</a>
+                            <a href="/app/training/details?id=${training.id}" class="btn btn-info rounded-0 text-light m-1">Details</a>
+                            <a href="/app/training/edit?id=${training.id}" class="btn btn-warning rounded-0 text-light m-1">Edit</a>
                         </td>
                     </tr>
                 </c:forEach>
