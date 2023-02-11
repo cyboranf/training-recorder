@@ -105,4 +105,37 @@ public class TrainingController {
 
         return "appTrainingDetails";
     }
+
+    @GetMapping("/app/training/listD")
+    public String showTrainingsToSeeDetails(Model model){
+        User loggedUser = userService.findByLogged();
+        List<Training> trainingList = trainingService.trainingList(loggedUser);
+
+        model.addAttribute("trainingList", trainingList);
+
+        return "appTrainingListD";
+    }
+
+    @GetMapping("/app/training/detailsD")
+    public String showAnotherViewOfDetails(@RequestParam(name = "id") String id,
+                                      Model model) {
+        int runningId = Integer.parseInt(id);
+        User loggedUser = userService.findByLogged();
+        List<Training> trainingList = trainingService.trainingList(loggedUser);
+        TrainingDetails trainingDetails = trainingList.get(runningId - 1).getTrainingDetails();
+
+        model.addAttribute("trainingDetail", trainingDetails);
+
+        return "appTrainingDetailsD";
+    }
+
+    @GetMapping("/app/training/listE")
+    public String showTrainingsToEdit(Model model){
+        User loggedUser = userService.findByLogged();
+        List<Training> trainingList = trainingService.trainingList(loggedUser);
+
+        model.addAttribute("trainingList", trainingList);
+
+        return "appTrainingListE";
+    }
 }
