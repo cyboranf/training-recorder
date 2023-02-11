@@ -3,7 +3,7 @@ package pl.project.trainingrecorder.alghoritms;
 import java.time.LocalTime;
 
 public class CaloriesBurned {
-    public static long calculateKcal(double avgTemp, LocalTime time, int weight) {
+    public long calculateKcal(double avgTemp, LocalTime time, int weight) {
         long kcals;
         if (time.getHour() == 0) {
             kcals = time.getMinute();

@@ -4,7 +4,7 @@ import java.text.DecimalFormat;
 import java.time.LocalTime;
 
 public class AvgRunningPace {
-    public static double avgTemp(LocalTime time, int km) {
+    public double avgTemp(LocalTime time, int km) {
         DecimalFormat df = new DecimalFormat("##.##");
         if (time.getHour() == 0) {
             double timeOfRun = ((time.getSecond() + (time.getMinute() * 60))); //in seconds
@@ -22,7 +22,7 @@ public class AvgRunningPace {
         }
     }
 
-    public static double convert2kmh(double MonS) {
+    public double convert2kmh(double MonS) {
         DecimalFormat df = new DecimalFormat("##.##");
         double kmh = MonS * 3.6;
 
