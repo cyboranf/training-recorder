@@ -24,4 +24,12 @@ public class TrainingService {
     public List<Training> trainingList(User user) {
         return user.getTrainingList();
     }
+
+    public Training findById(long id) {
+        return trainingRepository.findById(id).get();
+    }
+
+    public void delete(Training training) {
+        trainingRepository.delete(training);
+    }
 }
