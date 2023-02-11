@@ -41,20 +41,20 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/app/recipe/list">
+                <a class="nav-link" href="/app/training/list">
                     <span>Trainings</span>
                     <i class="fas fa-angle-right"></i>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/app/plan/list">
+                <a class="nav-link" href="/app/training/listD">
                     <span>Training paces</span>
                     <i class="fas fa-angle-right"></i>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/app/editData">
-                    <span>Edit data</span>
+                <a class="nav-link" href="/app/training/listE">
+                    <span>Edit trainings</span>
                     <i class="fas fa-angle-right"></i>
                 </a>
             </li>
