@@ -7,14 +7,14 @@ public class AvgRunningPace {
     public double avgTemp(LocalTime time, int km) {
         DecimalFormat df = new DecimalFormat("##.##");
         if (time.getHour() == 0) {
-            double timeOfRun = ((time.getSecond() + (time.getMinute() * 60))); //in seconds
-            int meters = km * 1000;
+            double timeOfRun = (((double) time.getSecond() + ((double) time.getMinute() * 60.0))); //in seconds
+            double meters = km * 1000;
             double avgSpeed = meters / timeOfRun;           //m/s
 
             return convert2kmh(avgSpeed);
         } else {
-            double timeOfRun = (time.getHour() * 3600) + ((time.getSecond() + (time.getMinute() * 60))); //in seconds
-            int meters = km * 1000;
+            double timeOfRun = ((double) time.getHour() * 3600.0) + (((double) time.getSecond() + ((double) time.getMinute() * 60.0))); //in seconds
+            double meters = km * 1000.0;
             double avgSpeed = meters / timeOfRun;            //m/s
 
 
@@ -25,7 +25,7 @@ public class AvgRunningPace {
     public double convert2kmh(double MonS) {
         DecimalFormat df = new DecimalFormat("##.##");
         double kmh = MonS * 3.6;
-
-        return Double.parseDouble(df.format(kmh));
+        double returnedKmh = Double.parseDouble(df.format((long) kmh));
+        return returnedKmh;
     }
 }

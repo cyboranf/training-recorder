@@ -5,10 +5,10 @@ import java.time.LocalTime;
 public class CaloriesBurned {
     public long calculateKcal(double avgTemp, LocalTime time, int weight) {
         long kcals;
-        if (time.getHour() == 0) {
-            kcals = time.getMinute();
+        if ((long)time.getHour() == 0) {
+            kcals =(long)time.getMinute();
         } else {
-            kcals = time.getHour() * 60 + time.getMinute();
+            kcals = (long)time.getHour() * 60 + (long)time.getMinute();
         }
         if (avgTemp > 10) {
             kcals *= 2;
