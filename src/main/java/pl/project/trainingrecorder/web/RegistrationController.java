@@ -57,6 +57,6 @@ public class RegistrationController {
         user.setActive(true);
         userService.save(user);
 
-        return "dashboard";
+        return "redirect:/";
     }
 }
