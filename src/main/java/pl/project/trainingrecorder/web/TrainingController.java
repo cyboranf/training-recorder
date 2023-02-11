@@ -1,6 +1,7 @@
 package pl.project.trainingrecorder.web;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import pl.project.trainingrecorder.alghoritms.AvgRunningPace;
 import pl.project.trainingrecorder.alghoritms.CaloriesBurned;
@@ -28,21 +29,30 @@ public class TrainingController {
         this.trainingDetailsService = trainingDetailsService;
     }
 
-    @GetMapping("/app/training/add")
-    public String showAddTrainingJSP() {
-        return "appTrainingAdd";
+    @GetMapping("/app/training/list")
+    public String showTrainingListJSP(Model model) {
+        User loggedUser = userService.findByLogged();
+        List<Training> trainingList = trainingService.trainingList(loggedUser);
+
+        model.addAttribute("trainingList", trainingList);
+
+        return "appTrainingList";
     }
 
+    @GetMapping("/app/training/add")
+    public String showAddTrainingJSP() {
+        return "appRunningAdd";
+    }
 
-    @PostMapping("/app/trainings/add")
-    public String addTraining(@RequestParam(name = "date") String date,
-                              @RequestParam(name = "description") String description,
-                              @RequestParam(name = "kilometers") String kilometers,
-                              @RequestParam(name = "weight") String weight,
-                              @RequestParam(name = "height") String height,
-                              @RequestParam(name = "hours") String hours,
-                              @RequestParam(name = "minutes") String minutes,
-                              @RequestParam(name = "seconds") String seconds) {
+    @GetMapping("/app/trainings/add")
+    public String saveTraining(@RequestParam String date,
+                               @RequestParam String description,
+                               @RequestParam String kilometers,
+                               @RequestParam String hours,
+                               @RequestParam String minutes,
+                               @RequestParam String seconds,
+                               @RequestParam String height,
+                               @RequestParam String weight) {
         User loggedUser = userService.findByLogged();
         Training training = new Training();
         TrainingDetails trainingDetails = new TrainingDetails();
@@ -56,10 +66,20 @@ public class TrainingController {
 
         trainingDetails.setHeight(Integer.parseInt(height));
         trainingDetails.setWeight(Integer.parseInt(weight));
-        trainingDetails.setTemp(AvgRunningPace.avgTemp(time, Integer.parseInt(kilometers)));
-        trainingDetails.setKcal(CaloriesBurned.calculateKcal(trainingDetails.getTemp(), time, Integer.parseInt(weight)));
-        trainingDetails.setKilometers(Integer.parseInt(kilometers));
 
+        //Calculate Section
+        CaloriesBurned caloriesBurned = new CaloriesBurned();
+        AvgRunningPace avgRunningPace = new AvgRunningPace();
+
+        int userWeight = Integer.parseInt(weight);
+        int km = Integer.parseInt(kilometers);
+
+        double temp = avgRunningPace.avgTemp(time, km);
+        long calories = caloriesBurned.calculateKcal(temp, time, userWeight);
+        //Calculate Section
+        trainingDetails.setTemp(temp);
+        trainingDetails.setKcal(calories);
+        trainingDetails.setKilometers(km);
 
         training.setTrainingDetails(trainingDetails);
 
@@ -70,5 +90,19 @@ public class TrainingController {
         loggedUser.setTrainingList(trainingList);
         userService.save(loggedUser);
         return "redirect:/app/dashboard";
+    }
+
+
+    @GetMapping("/app/training/details")
+    public String showTrainingDetails(@RequestParam(name = "id") String id,
+                                      Model model) {
+        int trainingId = Integer.parseInt(id);
+        User loggedUser = userService.findByLogged();
+        List<Training> trainingList = trainingService.trainingList(loggedUser);
+        TrainingDetails trainingDetails = trainingList.get(trainingId - 1).getTrainingDetails();
+
+        model.addAttribute("trainingDetail", trainingDetails);
+
+        return "appTrainingDetails";
     }
 }
