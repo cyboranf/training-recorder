@@ -12,13 +12,13 @@
                 </a>
             </div>
             <div class="menu-item border-dashed">
-                <a href="/app/dashboard/{previousIndex}">
+                <a href="/app/dashboard/${previousIndex}">
                     <i class="far fa-plus-square icon-plus-square"></i>
                     <span class="title">Previous Training</span>
                 </a>
             </div>
             <div class="menu-item border-dashed">
-                <a href="/app/dashboard/{nextIndex}">
+                <a href="/app/dashboard">
                     <i class="far fa-plus-square icon-plus-square"></i>
                     <span class="title">Next Training</span>
                 </a>
