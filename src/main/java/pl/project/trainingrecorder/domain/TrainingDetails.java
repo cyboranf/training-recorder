@@ -1,12 +1,16 @@
 package pl.project.trainingrecorder.domain;
 
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "training_detail")
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class TrainingDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,10 +21,11 @@ public class TrainingDetails {
     private int height;
     @Column(name = "temp", nullable = true)
     private double temp;
-    @Column(name = "kcal",nullable = true)
+    @Column(name = "kcal", nullable = true)
     private long kcal;
     @Column(name = "km")
     private int kilometers;
-
-
+    @JsonIgnore
+    @OneToOne(mappedBy = "trainingDetails")
+    private Training training;
 }

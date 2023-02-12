@@ -1,6 +1,7 @@
 package pl.project.trainingrecorder.domain;
 
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.*;
 import org.intellij.lang.annotations.Pattern;
 
 import javax.persistence.*;
@@ -8,7 +9,10 @@ import java.util.List;
 
 @Table(name = "user")
 @Entity
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,6 +32,7 @@ public class User {
 
     private boolean logged;
     private boolean active;
-    @OneToMany
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<Training> trainingList;
 }

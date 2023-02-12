@@ -1,7 +1,6 @@
 package pl.project.trainingrecorder.domain;
 
-import lombok.Data;
-import lombok.Generated;
+import lombok.*;
 import org.intellij.lang.annotations.Pattern;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.lang.Nullable;
@@ -12,7 +11,10 @@ import java.time.LocalTime;
 
 @Table(name = "training")
 @Entity
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Training {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,8 +30,11 @@ public class Training {
     @Column(name = "description")
     @Nullable
     private String description;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private TrainingDetails trainingDetails;
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private User user;
 
 }
