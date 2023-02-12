@@ -294,10 +294,14 @@ public class TrainingController {
 
         List<Training> trainingList = loggedUser.getTrainingList();
         trainingList.remove(ID - 1);
+        training.setTrainingDetails(null);
+        trainingDetails.setTraining(null);
+        training.setUser(null);
+
+        trainingDetailsService.deleteById(ID);
+        trainingService.deleteByID(ID);
 
 
-        trainingService.delete(training);
-        trainingDetailsService.delete(trainingDetails);
 
         return "redirect:/app/training/list";
     }
