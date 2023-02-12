@@ -8,9 +8,10 @@ import java.util.List;
 import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<User, Long> {
-    Optional<User> findByUserName(String userName);
+    User findByuserName(String userName);
 
     User findFirstByEmail(String email);
+
     @Query(value = "SELECT * FROM user WHERE logged = true", nativeQuery = true)
     List<User> findByLogged();
 }

@@ -1,40 +1,57 @@
-//package pl.project.trainingrecorder.security;
-//
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.context.annotation.Bean;
-//import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-//import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-//import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-//import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-//import org.springframework.security.core.userdetails.UserDetailsService;
-//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-//import org.springframework.security.crypto.password.NoOpPasswordEncoder;
-//import org.springframework.security.crypto.password.PasswordEncoder;
-//
-//@EnableWebSecurity
-//public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
-//    @Autowired
-//    UserDetailsService userDetailsService;
-//
-//    @Override
-//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//        auth.userDetailsService(userDetailsService);
-//    }
-//
-//    @Override
-//    protected void configure(HttpSecurity http) throws Exception {
-//        http.authorizeRequests()
-//                .antMatchers("/app/**").hasRole("USER")
-//                .antMatchers("/admin/*").hasRole("ADMIN")
-//                .antMatchers("/").permitAll()
-//                .antMatchers("/register").permitAll()
-//                .and().formLogin().loginPage("/login")
-//                .defaultSuccessUrl("/app/dashboard",true)
-//                .failureUrl("/");
-//    }
-//
-//    @Bean
-//    public PasswordEncoder passwordEncoder() {
-//        return new BCryptPasswordEncoder();
-//    }
-//}
+package pl.project.trainingrecorder.security;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+
+@Configuration
+@EnableWebSecurity
+public class SecurityConfiguration {
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
+        return httpSecurity
+                .csrf().disable()
+                .authorizeRequests()
+                .antMatchers("/").permitAll()
+                .antMatchers("/login/register").permitAll()
+                .antMatchers("/login", "/login/register").anonymous()
+                .antMatchers("/login/redirect").authenticated()
+                .antMatchers("/app/**").hasAuthority("USER")
+                .anyRequest().denyAll()
+                .and().formLogin()
+                .loginPage("/login")
+                .failureUrl("/login?error=true")
+                .defaultSuccessUrl("/login/redirect")
+                .usernameParameter("userName")
+                .passwordParameter("password")
+                .and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                .logoutSuccessUrl("/")
+//                .and().exceptionHandling().accessDeniedPage("/access-denied")
+                .and().build();
+    }
+    @Bean
+    public WebSecurityCustomizer webSecurityCustomizer() {
+        return (web) -> web.ignoring().antMatchers( "/css/**");
+    }
+    @Bean
+    public BCryptPasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public AuthenticationManager authManager(HttpSecurity httpSecurity, BCryptPasswordEncoder bCryptPasswordEncoder,
+                                             UserDetailsService userDetailsService) throws Exception {
+        return httpSecurity.getSharedObject(AuthenticationManagerBuilder.class)
+                .userDetailsService(userDetailsService)
+                .passwordEncoder(bCryptPasswordEncoder)
+                .and().build();
+    }
+}

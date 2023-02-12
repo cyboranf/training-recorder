@@ -6,6 +6,7 @@ import org.intellij.lang.annotations.Pattern;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @Table(name = "user")
 @Entity
@@ -27,11 +28,13 @@ public class User {
     private String password;
     @Transient
     private String matchingPassword;
-    @Column(name = "role")
-    private String roles;
 
     private boolean logged;
     private boolean active;
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles;
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<Training> trainingList;

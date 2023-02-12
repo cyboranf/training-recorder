@@ -12,7 +12,7 @@
 //
 //@Service
 //public class TRUserDetailsService implements UserDetailsService {
-//    @Autowired
+//
 //    UserRepository userRepository;
 //
 //    @Override

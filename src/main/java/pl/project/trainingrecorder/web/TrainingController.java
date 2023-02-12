@@ -82,12 +82,14 @@ public class TrainingController {
         trainingDetails.setKilometers(km);
 
         training.setTrainingDetails(trainingDetails);
+        training.setUser(loggedUser);
 
         trainingDetailsService.save(trainingDetails);
         trainingService.save(training);
         List<Training> trainingList = loggedUser.getTrainingList();
         trainingList.add(training);
         loggedUser.setTrainingList(trainingList);
+
         userService.save(loggedUser);
         return "redirect:/app/dashboard";
     }
