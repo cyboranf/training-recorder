@@ -59,18 +59,20 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link disabled" href="/app/changePassword">
+                <a class="nav-link disabled" onclick="upsProblem()">
                     <span>Change Password</span>
                     <i class="fas fa-angle-right"></i>
                 </a>
             </li>
-            <c:if test="${cookie.CookieAdmin.value==1}">
-                <li class="nav-item">
-                    <a class="nav-link" href="/app/super">
-                        <span>Users</span>
-                        <i class="fas fa-angle-right"></i>
-                    </a>
-                </li>
-            </c:if>
+
 
         </ul>
+        <script>
+            function upsProblem() {
+                if (confirm("Ups can not change password at the moment :D") == true) {
+                    window.location.href = "/app/dashboard";
+                } else {
+                    window.location.href = "/app/dashboard"
+                }
+            }
+        </script>
