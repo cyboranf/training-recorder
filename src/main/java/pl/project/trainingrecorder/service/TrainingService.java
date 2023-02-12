@@ -32,4 +32,8 @@ public class TrainingService {
     public void delete(Training training) {
         trainingRepository.delete(training);
     }
+
+    public void deleteByID(Long id){
+        trainingRepository.deleteById(id);
+    }
 }
