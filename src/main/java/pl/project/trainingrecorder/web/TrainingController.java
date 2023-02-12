@@ -298,9 +298,8 @@ public class TrainingController {
         trainingDetails.setTraining(null);
         training.setUser(null);
 
-        trainingDetailsService.deleteById(ID);
-        trainingService.deleteByID(ID);
-
+        trainingDetailsService.delete(trainingDetails);
+        trainingService.delete(training);
 
 
         return "redirect:/app/training/list";
