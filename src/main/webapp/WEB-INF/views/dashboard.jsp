@@ -38,7 +38,7 @@
     </div>
     <div class="m-4 p-4 border-dashed">
         <h2 class="dashboard-content-title">
-            <span>Last Training:</span> no. ${training.id}
+            <span>Your Last Training:</span>
         </h2>
         <h2 class="dashboard-content-title">
             <span> when: </span> ${training.trainingDay}

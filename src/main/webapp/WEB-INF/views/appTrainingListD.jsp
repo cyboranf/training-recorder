@@ -28,7 +28,7 @@
         <tbody class="text-color-lighter">
         <c:forEach items="${trainingList}" var="training" varStatus="loopStatus">
           <tr class="d-flex">
-            <th scope="row" class="col-1">${training.id}</th>
+            <th scope="row" class="col-1">${loopStatus.count}</th>
             <td class="col-2">${training.trainingDay}</td>
             <td class="col-2">${training.trainingTime}</td>
             <td class="col-5">${training.description}</td>

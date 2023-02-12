@@ -24,7 +24,7 @@
                 <a class="nav-link color-header" href="/login">sign in</a>
             </li>
             <li class="nav-item ml-4">
-                <a class="nav-link color-header" href="/register">sign up</a>
+                <a class="nav-link color-header" href="/login/register">sign up</a>
             </li>
 
         </ul>

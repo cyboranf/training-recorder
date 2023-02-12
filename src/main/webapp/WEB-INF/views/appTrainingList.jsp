@@ -28,12 +28,12 @@
                 <tbody class="text-color-lighter">
                 <c:forEach items="${trainingList}" var="training" varStatus="loopStatus">
                     <tr class="d-flex">
-                        <th scope="row" class="col-1">${training.id}</th>
+                        <th scope="row" class="col-1">${loopStatus.count}</th>
                         <td class="col-2">${training.trainingDay}</td>
                         <td class="col-2">${training.trainingTime}</td>
                         <td class="col-5">${training.description}</td>
                         <td class="col-2 d-flex align-items-center justify-content-center flex-wrap">
-                            <button onclick="myFunction(${training.id})"
+                            <button onclick="myFunction(${loopStatus.count},${training.id})"
                                     class="btn btn-danger rounded-0 text-light m-1">
                                 Delete
                             </button>
@@ -51,8 +51,8 @@
 </div>
 </section>
 <script>
-    function myFunction(number) {
-        if (confirm("Are you sure to delete training " + number + "?") == true) {
+    function myFunction(count,number) {
+        if (confirm("Are you sure to delete training no. " + count + "?") == true) {
             window.location.href = "/app/training/delete?id="+number;
         } else {
             window.location.href = "/app/training/list"
