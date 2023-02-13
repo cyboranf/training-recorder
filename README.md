@@ -1,5 +1,8 @@
 # training-recorder
 
+**You can create an account, login and then use app!**
+**App give you an options like see your trainings, add them, edit them, delete them and see details of them**
+
 **Landing page**
 ![view App](/imagesToReadME/landingPage.png)
 **Register view**
