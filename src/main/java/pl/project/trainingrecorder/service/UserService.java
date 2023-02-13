@@ -33,7 +33,7 @@ public class UserService {
         user.setActive(true);
         Role userRole = roleRepository.findRoleByName("USER");
         user.setRoles(new HashSet<>(Arrays.asList(userRole)));
-        user.setLogged(false);
+
         return userRepository.save(user);
     }
 

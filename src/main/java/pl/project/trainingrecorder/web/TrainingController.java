@@ -89,7 +89,7 @@ public class TrainingController {
         List<Training> trainingList = loggedUser.getTrainingList();
         trainingList.add(training);
         loggedUser.setTrainingList(trainingList);
-
+        loggedUser.setLogged(true);
         userService.save(loggedUser);
         return "redirect:/app/dashboard";
     }
