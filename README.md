@@ -8,6 +8,8 @@
 ![view App](/imagesToReadME/loginView.png)
 **App after security successURL**
 ![view App](/imagesToReadME/app.png)
+**Adding training view**
+![view App](/imagesToReadME/add.png)
 **List of all trainings**
 ![view App](/imagesToReadME/list.png)
 **Training details**
