@@ -23,13 +23,13 @@ public class SecurityConfiguration {
                 .authorizeRequests()
                 .antMatchers("/").permitAll()
                 .antMatchers("/login/register").permitAll()
-                .antMatchers("/login", "/login/register").anonymous()
+                .antMatchers("/login", "/login/register").permitAll()
                 .antMatchers("/login/redirect").authenticated()
-                .antMatchers("/app/**").hasAuthority("USER")
+                .antMatchers("/app/**").hasAuthority("USER") //tu tak jak nizej sprzeczne z tym jak powinno byc
                 .anyRequest().denyAll()
                 .and().formLogin()
                 .loginPage("/login")
-                .failureUrl("/login?error=true")
+                .failureUrl("/login?error=true") //sprzeczne z logiką, ustawiłem tak,by nie usuwac konfiguracji security. User ma wszystkie pola null w momencie logowania i zawsze przerzuca na failureURL
                 .defaultSuccessUrl("/login/redirect")
                 .usernameParameter("userName")
                 .passwordParameter("password")

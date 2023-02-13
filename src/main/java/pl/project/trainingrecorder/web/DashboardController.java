@@ -36,15 +36,19 @@ public class DashboardController {
         model.addAttribute("numberOfTrainings", userService.loggedUserTrainingCount());
         model.addAttribute("numberOfBurnedCalories", userService.loggedUserBurnedCalories());
 
-        List<Training> loggedUserTrainings = trainingService.trainingList(loggedUser);
-        trainingIndex = loggedUserTrainings.size() - 1;
-        Training showingTraining = loggedUserTrainings.get(trainingIndex);
-        TrainingDetails showingTrainingDetails = loggedUserTrainings.get(trainingIndex).getTrainingDetails();
 
-        model.addAttribute("nextIndex", trainingIndex + 1);
-        model.addAttribute("previousIndex", trainingIndex - 1);
-        model.addAttribute("training", showingTraining);
-        model.addAttribute("trainingDetail", showingTrainingDetails);
+        List<Training> loggedUserTrainings = trainingService.trainingList(loggedUser);
+        if (loggedUserTrainings.size()!=0){
+            trainingIndex = loggedUserTrainings.size() - 1;
+            Training showingTraining = loggedUserTrainings.get(trainingIndex);
+            TrainingDetails showingTrainingDetails = loggedUserTrainings.get(trainingIndex).getTrainingDetails();
+
+            model.addAttribute("nextIndex", trainingIndex + 1);
+            model.addAttribute("previousIndex", trainingIndex - 1);
+            model.addAttribute("training", showingTraining);
+            model.addAttribute("trainingDetail", showingTrainingDetails);
+        }
+
 
 
         return "dashboard";

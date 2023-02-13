@@ -21,11 +21,11 @@ public class User {
     private Long id;
     @Column(length = 60, unique = true)
     private String email;
-    @Column(length = 60)
+    @Column(nullable = false, unique = true, length = 30)
     private String userName;
     @Column(length = 60)
     private String lastName;
-    @Column(length = 100)
+    @Column(length = 100,nullable = false)
     private String password;
     @Transient
     private String matchingPassword;

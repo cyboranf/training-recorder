@@ -24,9 +24,9 @@ public class RegistrationController {
     }
 
     @GetMapping("/login")
-    public String showLoginJSP(Model model,
-                               @ModelAttribute("user") User user) {
-        model.addAttribute("user", user);
+    public String showLoginJSP(Model model) {
+//        User user = new User();
+//        model.addAttribute("user", user);
         return "login";
     }
 
