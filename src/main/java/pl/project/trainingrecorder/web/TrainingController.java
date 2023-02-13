@@ -101,7 +101,7 @@ public class TrainingController {
         int trainingId = Integer.parseInt(id);
         User loggedUser = userService.findByLogged();
         List<Training> trainingList = trainingService.trainingList(loggedUser);
-        TrainingDetails trainingDetails = trainingList.get(trainingId - 1).getTrainingDetails();
+        TrainingDetails trainingDetails = trainingService.findById(trainingId).getTrainingDetails();
 
         model.addAttribute("trainingDetail", trainingDetails);
 
@@ -124,7 +124,8 @@ public class TrainingController {
         int runningId = Integer.parseInt(id);
         User loggedUser = userService.findByLogged();
         List<Training> trainingList = trainingService.trainingList(loggedUser);
-        TrainingDetails trainingDetails = trainingList.get(runningId - 1).getTrainingDetails();
+        TrainingDetails trainingDetails = trainingService.findById(runningId).getTrainingDetails();
+
 
         model.addAttribute("trainingDetail", trainingDetails);
 
@@ -149,8 +150,8 @@ public class TrainingController {
         User loggedUser = userService.findByLogged();
         List<Training> trainingList = trainingService.trainingList(loggedUser);
 
-        TrainingDetails trainingDetails = trainingList.get(runningId - 1).getTrainingDetails();
-        Training training = trainingList.get(runningId - 1);
+        TrainingDetails trainingDetails = trainingService.findById(identity).getTrainingDetails();
+        Training training = trainingService.findById(identity);
 
         model.addAttribute("training", training);
         model.addAttribute("trainingDetail", trainingDetails);
@@ -223,8 +224,8 @@ public class TrainingController {
         User loggedUser = userService.findByLogged();
         List<Training> trainingList = trainingService.trainingList(loggedUser);
 
-        TrainingDetails trainingDetails = trainingList.get(runningId - 1).getTrainingDetails();
-        Training training = trainingList.get(runningId - 1);
+        TrainingDetails trainingDetails = trainingService.findById(identity).getTrainingDetails();
+        Training training = trainingService.findById(identity);
 
         model.addAttribute("training", training);
         model.addAttribute("trainingDetail", trainingDetails);
