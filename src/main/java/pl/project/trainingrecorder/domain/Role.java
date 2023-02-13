@@ -14,5 +14,5 @@ public class Role {
     private int id;
 
     @Column
-    private String role;
+    private String name;
 }

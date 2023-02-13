@@ -8,7 +8,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import pl.project.trainingrecorder.domain.LoggedUser;
+import pl.project.trainingrecorder.domain.Role;
 import pl.project.trainingrecorder.domain.User;
 
 import java.util.HashSet;
@@ -31,7 +33,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             throw new UsernameNotFoundException(name);
         }
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
-        user.getRoles().forEach(role -> grantedAuthorities.add(new SimpleGrantedAuthority(role.getRole())));
+        user.getRoles().forEach(role -> grantedAuthorities.add(new SimpleGrantedAuthority(role.getName())));
         return new LoggedUser(user.getUserName(), user.getPassword(), grantedAuthorities, user);
     }
 }

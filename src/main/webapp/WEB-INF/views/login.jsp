@@ -1,3 +1,5 @@
+
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
@@ -10,29 +12,29 @@
         <div class="border-dashed view-height">
             <div class="container w-25">
 
-<%--                <form class="padding-small text-center" method="post">--%>
-<form:form cssClass="padding-small text-center" method="post" modelAttribute="user">
-    <div>
-        If you don't have an account go to <a href="<c:url value="/login/register"/>">Registration page</a>
-    </div>
+                <%--                <form class="padding-small text-center" method="post">--%>
+                <form:form modelAttribute="user" method="post">
+                    <div>
+                        If you don't have an account go to <a href="<c:url value="/login/register"/>">Registration page</a>
+                    </div>
                     <h1 class="text-color-darker">Sign in to Training Recorder</h1>
                     <div class="form-group">
-<%--                        <input type="text" class="form-control" id="userName" name="name" placeholder="name">--%>
-    <form:input path="userName" id="name"/>
-    <form:errors path="userName"/>
+                            <%--                        <input type="text" class="form-control" id="userName" name="name" placeholder="name">--%>
+                        <form:input path="userName" placeholder="first name"/>
+
                     </div>
                     <div class="form-group">
-<%--                        <input type="password" class="form-control" id="password" name="password"--%>
-<%--                               placeholder="password">--%>
-    <form:password path="password" id="password"/>
-    <form:errors path="password"/>
+                            <%--                        <input type="password" class="form-control" id="password" name="password"--%>
+                            <%--                               placeholder="password">--%>
+                                <form:password path="password" placeholder="password"/>
                     </div>
                     <button class="btn btn-color rounded-0" type="submit">Sign in</button>
-</form:form>
+                </form:form>
+                <c:if test="${param.error == true}">
+                    <p>Login failed</p>
+                </c:if>
             </div>
-            <c:if test="${param.error == true}">
-                <p>Login failed</p>
-            </c:if>
+
         </div>
     </div>
 </section>

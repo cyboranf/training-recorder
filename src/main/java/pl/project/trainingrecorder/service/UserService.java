@@ -31,8 +31,9 @@ public class UserService {
     public User save(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setActive(true);
-        Role userRole = roleRepository.findByRole("USER");
-        user.setRoles(new HashSet<>(Arrays.asList(userRole)));
+        Role userRole = roleRepository.findRoleByName("ROLE_USER");
+        user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
+        user.setLogged(false);
         return userRepository.save(user);
     }
 
@@ -45,7 +46,7 @@ public class UserService {
     }
 
     public User findUserByName(String name) {
-        return userRepository.findByuserName(name);
+        return userRepository.findUserByuserName(name);
     }
 
     public int loggedUserTrainingCount() {
