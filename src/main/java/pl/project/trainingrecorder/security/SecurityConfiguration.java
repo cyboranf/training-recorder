@@ -25,23 +25,26 @@ public class SecurityConfiguration {
                 .antMatchers("/login/register").permitAll()
                 .antMatchers("/login", "/login/register").permitAll()
                 .antMatchers("/login/redirect").authenticated()
-                .antMatchers("/app/**").permitAll() //tu tak jak nizej sprzeczne z tym jak powinno byc
+                .antMatchers("/app/**").hasAuthority("USER")
                 .anyRequest().denyAll()
                 .and().formLogin()
                 .loginPage("/login")
-                .failureUrl("/app/dashboard") //sprzeczne z logiką, ustawiłem tak,by nie usuwac konfiguracji security. User ma wszystkie pola null w momencie logowania i zawsze przerzuca na failureURL
+                .failureUrl("/login?error=true")
                 .defaultSuccessUrl("/login/redirect")
                 .usernameParameter("userName")
                 .passwordParameter("password")
                 .and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                .logoutSuccessUrl("/")
+                .logoutSuccessUrl("/logout/redirect")
 //                .and().exceptionHandling().accessDeniedPage("/access-denied")
                 .and().build();
     }
+
+
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
-        return (web) -> web.ignoring().antMatchers( "/css/**");
+        return (web) -> web.ignoring().antMatchers("/css/**");
     }
+
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();

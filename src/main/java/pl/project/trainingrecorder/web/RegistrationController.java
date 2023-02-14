@@ -55,7 +55,7 @@ public class RegistrationController {
             model.addAttribute("user", user);
             return "registration";
         }
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+
         user.setActive(true);
 
         userService.save(user);
@@ -64,12 +64,19 @@ public class RegistrationController {
         return "registration";
     }
 
+    @GetMapping("/logout/redirect")
+    public String redirect() {
+        User loggedUser = userService.findByLogged();
+        loggedUser.setLogged(false);
+        userService.save(loggedUser);
+        return "redirect:/";
+    }
     @GetMapping("/login/redirect")
     public String redirect(@AuthenticationPrincipal LoggedUser loggedUser) {
-        if (loggedUser.getAuthorities().contains(new SimpleGrantedAuthority("USER"))) {
-            return "redirect:/app/dashboard";
-        } else {
-            return "redirect:/";
-        }
+        User user=loggedUser.getUser();
+        user.setLogged(true);
+        userService.save(user);
+        return "redirect:/app/dashboard";
     }
+
 }

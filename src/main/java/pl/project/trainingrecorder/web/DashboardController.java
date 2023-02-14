@@ -1,10 +1,12 @@
 package pl.project.trainingrecorder.web;
 
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import pl.project.trainingrecorder.alghoritms.IndexChanger;
+import pl.project.trainingrecorder.domain.LoggedUser;
 import pl.project.trainingrecorder.domain.Training;
 import pl.project.trainingrecorder.domain.TrainingDetails;
 import pl.project.trainingrecorder.domain.User;
@@ -38,7 +40,7 @@ public class DashboardController {
 
 
         List<Training> loggedUserTrainings = trainingService.trainingList(loggedUser);
-        if (loggedUserTrainings.size()!=0){
+        if (loggedUserTrainings.size() != 0) {
             trainingIndex = loggedUserTrainings.size() - 1;
             Training showingTraining = loggedUserTrainings.get(trainingIndex);
             TrainingDetails showingTrainingDetails = loggedUserTrainings.get(trainingIndex).getTrainingDetails();
@@ -50,7 +52,6 @@ public class DashboardController {
         }
 
 
-
         return "dashboard";
     }
 
@@ -58,6 +59,7 @@ public class DashboardController {
     public String appWithSpecifyIndex(@PathVariable String previousIndex,
                                       HttpServletResponse response,
                                       Model model) {
+
         User loggedUser = userService.findByLogged();
 
         Cookie cookieName = new Cookie("cookieName", loggedUser.getUserName());
@@ -73,7 +75,7 @@ public class DashboardController {
 
         IndexChanger indexChanger = new IndexChanger();
 
-        model.addAttribute("nextIndex", indexChanger.addToIndex(trainingIndex, loggedUserTrainings.size()-1));
+        model.addAttribute("nextIndex", indexChanger.addToIndex(trainingIndex, loggedUserTrainings.size() - 1));
         model.addAttribute("previousIndex", indexChanger.minusFromIndex(trainingIndex));
         model.addAttribute("training", showingTraining);
         model.addAttribute("trainingDetail", showingTrainingDetails);
