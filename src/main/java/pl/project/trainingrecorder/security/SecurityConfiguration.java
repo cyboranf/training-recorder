@@ -24,6 +24,7 @@ public class SecurityConfiguration {
                 .antMatchers("/").permitAll()
                 .antMatchers("/login/register").permitAll()
                 .antMatchers("/login", "/login/register").permitAll()
+                .antMatchers("/logout/*").permitAll()
                 .antMatchers("/login/redirect").authenticated()
                 .antMatchers("/app/**").hasAuthority("USER")
                 .anyRequest().denyAll()

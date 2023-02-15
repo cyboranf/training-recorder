@@ -55,7 +55,7 @@ public class RegistrationController {
             model.addAttribute("user", user);
             return "registration";
         }
-
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setActive(true);
 
         userService.save(user);
@@ -71,11 +71,13 @@ public class RegistrationController {
         userService.save(loggedUser);
         return "redirect:/";
     }
+
     @GetMapping("/login/redirect")
     public String redirect(@AuthenticationPrincipal LoggedUser loggedUser) {
-        User user=loggedUser.getUser();
-        user.setLogged(true);
-        userService.save(user);
+        User user = loggedUser.getUser();
+        User userToLog = userService.findUserByName(user.getUserName());
+        userToLog.setLogged(true);
+        userService.save(userToLog);
         return "redirect:/app/dashboard";
     }
 
