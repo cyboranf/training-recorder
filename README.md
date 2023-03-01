@@ -1,5 +1,7 @@
 # training-recorder
 
+Technologies: SpringBoot, SpringMVC, SpingJPA, SpringSecurity, Code by java, Java-8 elements. Front-end done with JSP & JavaScript
+
 **You can create an account, login and then use app!**
 **App give you an options like see your trainings, add them, edit them, delete them and see details of them**
 
